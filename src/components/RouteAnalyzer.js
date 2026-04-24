@@ -28,6 +28,8 @@ const RouteAnalyzer = () => {
     isEodLoading, handleVerEod
   } = useRouteData();
 
+
+
   // 🔥 NOVOS ESTADOS PARA O MODAL DO JSON (MAC OS)
   const [selectedJsonData, setSelectedJsonData] = useState(null);
   const [jsonSearchTerm, setJsonSearchTerm] = useState('');
@@ -56,6 +58,10 @@ const RouteAnalyzer = () => {
 
   const containerVariants = { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.1 } } };
   const itemVariants = { hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { type: "spring", stiffness: 100, damping: 15 } } };
+
+
+
+
 
   return (
     <div className="route-analyzer-container">

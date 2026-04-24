@@ -31,4 +31,9 @@ contextBridge.exposeInMainWorld('electronAPI', {
   
     // 💰 7. ANALISADOR DE PREÇOS (SQL)
     analyzeSqlPrices: (payload) => ipcRenderer.invoke('analyze-sql-prices', payload),
+
+   
+  
+  getMassiveMongoInvoices: (config, queryArray, collectionName) => 
+    ipcRenderer.invoke('get-massive-mongo-invoices', config, queryArray, collectionName),
 });

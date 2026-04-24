@@ -17,7 +17,10 @@ import { useTranslation } from 'react-i18next';
 const QUERY_TIMEOUT_MS = 30000;
 
 const cleanConnectionValue = (value) => {
-  return String(value || '').trim().replace(/^['"]+|['"]+$/g, '');
+  const cleaned = String(value || '').trim().replace(/^['"]+|['"]+$/g, '');
+  // 🔥 Se ele pescar um '[object Object]' do localStorage, ele devolve vazio!
+  if (cleaned === '[object Object]') return '';
+  return cleaned;
 };
 
 export const useRouteData = () => {
@@ -35,6 +38,8 @@ export const useRouteData = () => {
   const timeoutRef = useRef(null);
   const isQueryCancelled = useRef(false);
 
+
+  
   // 🔥 Estados do MUID (Nota Fiscal)
   const [isConnectionModalOpen, setIsConnectionModalOpen] = useState(false);
   const [selectedMuidData, setSelectedMuidData] = useState(null);
@@ -57,11 +62,16 @@ export const useRouteData = () => {
   // 🔥 LÓGICA DO EOD
   const handleVerEod = async (liquidate, company) => {
     setIsEodLoading(true);
+
+
     const mongoConfig = {
       server: localStorage.getItem('mongo_server'),
       database: localStorage.getItem('mongo_db') || 'MDB_PEPSICO_BR',
       user: localStorage.getItem('mongo_user'),
       password: localStorage.getItem('mongo_pass')
+
+
+      
     };
 
     try {

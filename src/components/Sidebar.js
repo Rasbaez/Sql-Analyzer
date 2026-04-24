@@ -1,7 +1,6 @@
 // 💻 src/components/Sidebar.js
-
 import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight, ChevronDown, DatabaseZap, Moon } from 'lucide-react'; // 🔥 Importei o DatabaseZap
+import { ChevronLeft, ChevronRight, ChevronDown, DatabaseZap, Moon, FileSpreadsheet } from 'lucide-react'; // 🔥 Importei o FileSpreadsheet
 import { useApp } from '../context/AppContext';
 import { useTranslation } from 'react-i18next';
 import ReactCountryFlag from "react-country-flag";
@@ -13,6 +12,7 @@ const Sidebar = ({ onToggleCollapse }) => {
   // Estados para controlar quais "pastas" estão abertas
   const [isLogsOpen, setIsLogsOpen] = useState(true);
   const [isMongoOpen, setIsMongoOpen] = useState(false); 
+  const [isAutomationOpen, setIsAutomationOpen] = useState(false); // 🔥 Novo estado pro submenu de automação
 
   const flagStyle = { width: '1.5em', height: '1.5em', borderRadius: '50%', objectFit: 'cover' };
 
@@ -57,8 +57,6 @@ const Sidebar = ({ onToggleCollapse }) => {
         >
           {sidebarCollapsed ? '🛠️' : '🛠️ Corretor SQL'}
         </button>
-        
-      
 
         <button 
           className={activeMenu === 'route' ? 'active' : ''} 
@@ -68,7 +66,6 @@ const Sidebar = ({ onToggleCollapse }) => {
           {sidebarCollapsed ? '📍' : '📍 Diagnóstico de Rota'}
         </button>
         
-          {/* 🔥 NOVO BOTÃO AQUI! */}
         <button className={activeMenu === 'prices' ? 'active' : ''} onClick={() => switchMenu('prices')} title="Análise de Preços">
           {sidebarCollapsed ? '💰' : '💰 Análise de Preços'}
         </button>
@@ -84,29 +81,20 @@ const Sidebar = ({ onToggleCollapse }) => {
             {!sidebarCollapsed && (isLogsOpen ? <ChevronDown size={16} /> : <ChevronLeft size={16} />)}
           </button>
 
-          {/* ITENS FILHOS */}
           {isLogsOpen && (
             <div className="submenu-items">
-              <button 
-                className={activeMenu === 'telemetry' ? 'active' : ''} 
-                onClick={() => switchMenu('telemetry')}
-                title="Telemetria (WTM)"
-              >
+              <button className={activeMenu === 'telemetry' ? 'active' : ''} onClick={() => switchMenu('telemetry')} title="Telemetria (WTM)">
                 {sidebarCollapsed ? '📟' : '📟 Telemetria (WTM)'}
               </button>
 
-              <button 
-                className={activeMenu === 'invoice' ? 'active' : ''} 
-                onClick={() => switchMenu('invoice')}
-                title="Notas Fiscais (DEBUG)"
-              >
+              <button className={activeMenu === 'invoice' ? 'active' : ''} onClick={() => switchMenu('invoice')} title="Notas Fiscais (DEBUG)">
                 {sidebarCollapsed ? '🧾' : '🧾 Notas Fiscais (DEBUG)'}
               </button>
             </div>
           )}
         </div>
 
-     {/* 🍃 SUBMENU: MONGODB (NOVA PASTA) */}
+       {/* 🍃 SUBMENU: MONGODB */}
         <div className="submenu-wrapper">
           <button 
             className={`submenu-parent ${activeMenu === 'mongo-invoice' || activeMenu === 'mongo-analyzer' ? 'active-parent' : ''}`}
@@ -117,45 +105,49 @@ const Sidebar = ({ onToggleCollapse }) => {
             {!sidebarCollapsed && (isMongoOpen ? <ChevronDown size={16} /> : <ChevronLeft size={16} />)}
           </button>
 
-        {/* ITENS FILHOS DO MONGO */}
           {isMongoOpen && (
             <div className="submenu-items">
-              <button 
-                className={activeMenu === 'mongo-invoice' ? 'active' : ''} 
-                onClick={() => switchMenu('mongo-invoice')}
-                title="Invoice Analyzer (Notas Fiscais)"
-              >
+              <button className={activeMenu === 'mongo-invoice' ? 'active' : ''} onClick={() => switchMenu('mongo-invoice')} title="Invoice Analyzer (Notas Fiscais)">
                 {sidebarCollapsed ? '🧾' : '🧾 Invoice Analyzer'}
               </button>
-            
               
-              <button 
-                className={activeMenu === 'mongo-analyzer' ? 'active' : ''} 
-                onClick={() => switchMenu('mongo-analyzer')}
-                title="EOD Analyzer (Validador de Fechamento)"
-              >
-                {sidebarCollapsed ? (
-                    <Moon size={16} color="#f8fafc" /> 
-                ) : (
-                    <>
-                      {/* Usamos marginRight para dar o mesmo espaço do emoji de cima */}
-                      <Moon size={16} color="#f8fafc" style={{ marginRight: '8px', verticalAlign: 'text-bottom' }} /> 
-                      EOD Analyzer
-                    </>
-                )}
+              <button className={activeMenu === 'mongo-analyzer' ? 'active' : ''} onClick={() => switchMenu('mongo-analyzer')} title="EOD Analyzer (Validador de Fechamento)">
+                {sidebarCollapsed ? <Moon size={16} color="#f8fafc" /> : <><Moon size={16} color="#f8fafc" style={{ marginRight: '8px', verticalAlign: 'text-bottom' }} /> EOD Analyzer</>}
               </button>
-
             </div>
           )}
         </div>
 
-        <button 
-          className={activeMenu === 'automation' ? 'active' : ''} 
-          onClick={() => switchMenu('automation')}
-          title="Automação Hypercare"
-        >
-          {sidebarCollapsed ? '🤖' : '🤖 Automação'}
-        </button>
+        {/* 🤖 NOVO SUBMENU: AUTOMAÇÃO */}
+        <div className="submenu-wrapper">
+          <button 
+            className={`submenu-parent ${activeMenu === 'automation' || activeMenu === 'massive-extractor' ? 'active-parent' : ''}`}
+            onClick={() => setIsAutomationOpen(!isAutomationOpen)}
+            title="Automação & Processos"
+          >
+            <span>{sidebarCollapsed ? '🤖' : '🤖 Automação'}</span>
+            {!sidebarCollapsed && (isAutomationOpen ? <ChevronDown size={16} /> : <ChevronLeft size={16} />)}
+          </button>
+
+          {isAutomationOpen && (
+            <div className="submenu-items">
+              <button className={activeMenu === 'automation' ? 'active' : ''} onClick={() => switchMenu('automation')} title="Automação Hypercare">
+                {sidebarCollapsed ? '⚡' : '⚡ Hypercare WTM'}
+              </button>
+              
+              <button className={activeMenu === 'massive-extractor' ? 'active' : ''} onClick={() => switchMenu('massive-extractor')} title="Extrator Massive Invoice">
+                {sidebarCollapsed ? (
+                    <FileSpreadsheet size={16} color="#f8fafc" /> 
+                ) : (
+                    <>
+                      <FileSpreadsheet size={16} color="#f8fafc" style={{ marginRight: '8px', verticalAlign: 'text-bottom' }} /> 
+                      Extrator Massivo (NF)
+                    </>
+                )}
+              </button>
+            </div>
+          )}
+        </div>
 
         <button 
           className={activeMenu === 'inventory' ? 'active' : ''} 

@@ -155,4 +155,42 @@ module.exports = function registerMongoHandlers(ipcMain) {
       if (client) await client.close();
     }
   });
+
+ // 🚀 NOVO: EXTRATOR MASSIVO (Bulk Query)
+  ipcMain.handle('get-massive-mongo-invoices', async (event, config, queryArray, collectionName = 'InvoiceSapExport') => {
+    const { MongoClient } = require('mongodb');
+    
+    // 🔥 CORREÇÃO WEBPACK: Força o Electron a expor o 'crypto' pro driver do MongoDB não chorar
+    const crypto = require('crypto');
+    if (typeof global.crypto === 'undefined') {
+      global.crypto = crypto;
+    }
+    
+    const userSeguro = encodeURIComponent(config.user);
+    const passSegura = encodeURIComponent(config.password);
+    const url = `mongodb://${userSeguro}:${passSegura}@${config.server}`;
+    
+    const client = new MongoClient(url, { serverSelectionTimeoutMS: 15000 });
+
+    try {
+      await client.connect();
+      const db = client.db(config.database);
+      const collection = db.collection(collectionName);
+
+      console.log(`[Mongo Backend] Executando Bulk Query com ${queryArray.length} condições OR...`);
+
+      const notas = await collection.find({ $or: queryArray }).toArray();
+
+      console.log(`[Mongo Backend] Retornando ${notas.length} notas massivas.`);
+      
+      return { success: true, data: notas };
+    } catch (error) {
+      console.error('[Mongo Backend Erro Massivo]:', error);
+      // 🔥 IMPORTANTE: Retorna só a mensagem de erro pro Frontend não dar erro de IPC (null is not iterable)
+      return { success: false, error: error.message || "Erro desconhecido no MongoDB" };
+    } finally {
+      await client.close();
+    }
+  });
+  
 };

@@ -14,6 +14,15 @@ export const useApp = () => {
   return context;
 };
 
+
+// Função de limpeza
+const sanitize = (val) => {
+  if (!val || val === '[object Object]' || val === 'undefined') return '';
+  return String(val).trim().replace(/^['"]+|['"]+$/g, '');
+};
+
+
+
 // Provider do contexto
 export const AppProvider = ({ children }) => {
   // 🔥 Estado de Conexão
@@ -89,10 +98,14 @@ export const AppProvider = ({ children }) => {
   };
 
   const updateConnection = (server, database) => {
+    // Se o que vier for um objeto (erro comum de Select), tenta pegar o valor dentro dele
+    const s = typeof server === 'string' ? server : (server?.value || server?.server || '');
+    const d = typeof database === 'string' ? database : (database?.value || database?.database || '');
+
     setConnection(prev => ({
       ...prev,
-      server: server || prev.server,
-      database: database || prev.database
+      server: sanitize(s) || prev.server,
+      database: sanitize(d) || prev.database
     }));
   };
 

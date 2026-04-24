@@ -193,6 +193,20 @@ class ElectronAPIService {
     this._log('info', 'getSystemInfo', {});
     return this._call('getSystemInfo');
   }
+
+
+  // ============ MONGO DB ANALYZERS ============
+  
+  // (Adicione junto com os outros métodos do Mongo)
+  async getMassiveMongoInvoices(config, queryArray, collectionName) {
+    this._log('info', 'getMassiveMongoInvoices', { 
+      server: config.server, 
+      queryBlockSize: queryArray?.length 
+    });
+    return this._call('getMassiveMongoInvoices', config, queryArray, collectionName);
+  }
+
+  
 }
 
 // Exporta singleton

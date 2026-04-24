@@ -11,9 +11,12 @@ import AutomationManager from './components/AutomationManager';
 import Toast from './components/Toast';
 import MongoInvoiceAnalyzer from './components/MongoInvoiceAnalyzer'; 
 import MongoEodAnalyzer from './components/MongoEodAnalyzer'; 
-import './App.css';
 import PriceAnalyzer from './components/PriceAnalyzer';
 
+// 🔥 IMPORTAÇÃO DO NOVO COMPONENTE
+import MassiveInvoiceExtractor from './components/MassiveInvoiceExtractor'; 
+
+import './App.css';
 
 /**
  * Componente raiz da aplicação
@@ -26,17 +29,11 @@ function AppContent() {
     <div className={`app-master-container ${sidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
       
       {/* 🧭 MENU LATERAL MODULARIZADO */}
-      <Sidebar 
-        onToggleCollapse={toggleSidebar}
-      />
+      <Sidebar onToggleCollapse={toggleSidebar} />
 
       {/* 📺 ÁREA DE CONTEÚDO PRINCIPAL */}
       <main className="main-content">
         
-        <div style={{ display: activeMenu === 'connection' ? 'block' : 'none', height: '100%', overflow: 'hidden' }}>
-          {/* ConnectionSetup - placeholder */}
-        </div>
-
         <div style={{ display: activeMenu === 'sql' ? 'block' : 'none', height: '100%', overflow: 'hidden' }}>
           <SqlAnalyzer />
         </div>
@@ -53,22 +50,23 @@ function AppContent() {
           <InvoiceAnalyzer />
         </div>
 
-        {/* 🔥 RENDERIZAMOS O PAINEL DO MONGO INVOICE AQUI */}
         <div style={{ display: activeMenu === 'mongo-invoice' ? 'block' : 'none', height: '100%', overflow: 'hidden' }}>
           <MongoInvoiceAnalyzer />
         </div>
 
-        {/* 🔥 NOVO: RENDERIZAMOS O PAINEL DO MONGO EOD AQUI */}
         <div style={{ display: activeMenu === 'mongo-analyzer' ? 'block' : 'none', height: '100%', overflow: 'hidden' }}>
           <MongoEodAnalyzer />
         </div>
 
-        {/* 🔥 RENDERIZAMOS O PAINEL DO HYPERCARE AQUI */}
         <div style={{ display: activeMenu === 'automation' ? 'block' : 'none', height: '100%', overflow: 'hidden' }}>
           <AutomationManager />
         </div>
+
+        {/* 🔥 NOVO: TELA DO EXTRATOR MASSIVO */}
+        <div style={{ display: activeMenu === 'massive-extractor' ? 'block' : 'none', height: '100%', overflow: 'hidden', padding: '20px' }}>
+          <MassiveInvoiceExtractor />
+        </div>
         
-        {/* 🔥 PAINEL DO ANALISADOR DE PREÇOS */}
         <div style={{ display: activeMenu === 'prices' ? 'block' : 'none', height: '100%', overflow: 'hidden' }}>
           <PriceAnalyzer />
         </div>
@@ -88,3 +86,4 @@ function AppContent() {
 }
 
 export default AppContent;
+
