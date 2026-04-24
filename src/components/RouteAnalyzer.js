@@ -17,7 +17,8 @@ import { useApp } from '../context/AppContext';
 import videoFundo from './assets/background-tech.mp4';
 
 const RouteAnalyzer = () => {
-  const { connection } = useApp();
+  // 🔥 CORREÇÃO 1: Puxamos a função CORRETA do Contexto -> updateConnection
+  const { connection, updateConnection } = useApp();
   
   const { 
     rota, setRota, loading, routeData, historico, handleBuscarRota, handleCancelRoute, errorMessage, t,
@@ -28,9 +29,20 @@ const RouteAnalyzer = () => {
     isEodLoading, handleVerEod
   } = useRouteData();
 
+  // 🔥 CORREÇÃO 2: O Wrapper agora usa a função oficial do Contexto
+  const handleSaveConnectionWrapper = (newConfig) => {
+    // 1. Salva no hook RouteData (localStorage e states internos)
+    handleSaveConnection(newConfig);
+    
+    // 2. Avisa o Contexto Global para atualizar a UI imediatamente
+    if (updateConnection && newConfig.server && newConfig.database) {
+      updateConnection(newConfig.server, newConfig.database);
+    }
+    
+    // 3. Fecha o modal
+    setIsConnectionModalOpen(false);
+  };
 
-
-  // 🔥 NOVOS ESTADOS PARA O MODAL DO JSON (MAC OS)
   const [selectedJsonData, setSelectedJsonData] = useState(null);
   const [jsonSearchTerm, setJsonSearchTerm] = useState('');
 
@@ -48,7 +60,6 @@ const RouteAnalyzer = () => {
     return 'overlay-padrao';
   };
 
-  // Função para evitar quebra ao clicar em "Copiar TXT" no card de EOD
   const handleCopySingleTxt = (eod) => {
     const { GPID, trip, liq, ordersQty, totalOfItems } = eod.extracted || {};
     const isoTime = eod.mc1LastUpdate ? new Date(eod.mc1LastUpdate).toISOString() : 'N/A';
@@ -58,10 +69,6 @@ const RouteAnalyzer = () => {
 
   const containerVariants = { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.1 } } };
   const itemVariants = { hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { type: "spring", stiffness: 100, damping: 15 } } };
-
-
-
-
 
   return (
     <div className="route-analyzer-container">
@@ -76,7 +83,6 @@ const RouteAnalyzer = () => {
 
       <div style={{ position: 'relative', zIndex: 2 }}>
         
-        {/* HEADER E BARRA DE BUSCA */}
         <header className="dashboard-header">
           <div className="header-title-wrapper">
             <h2>📊 {t('route_analyzer_title')}</h2>
@@ -90,7 +96,7 @@ const RouteAnalyzer = () => {
             <div className="search-bar-panel">
               <button onClick={() => setIsConnectionModalOpen(true)} className="db-config-btn-style">
                 <Database size={14} />
-                {connection.database ? connection.database : t('route_configure_connection')}
+                {connection?.database ? connection.database : t('route_configure_connection')}
               </button>
 
               <input 
@@ -120,7 +126,6 @@ const RouteAnalyzer = () => {
           </div>
         </header>
 
-        {/* LOADING */}
         {loading && (
           <motion.div className="tech-loading-overlay" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}>
             <div className="radar-spinner"><Cpu size={32} color="#38bdf8" className="radar-core-icon" /></div>
@@ -131,7 +136,6 @@ const RouteAnalyzer = () => {
           </motion.div>
         )}
 
-        {/* ERROS */}
         {errorMessage && !loading && (
           <motion.div className="alert-box error" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}>
             <ShieldAlert size={64} color="#ef4444" style={{ marginBottom: '15px' }} />
@@ -140,7 +144,6 @@ const RouteAnalyzer = () => {
           </motion.div>
         )}
 
-        {/* O DASHBOARD RENDERIZADO */}
         {!loading && !errorMessage && routeData && (
           <motion.div className="bi-dashboard-layout" initial="hidden" animate="visible" variants={containerVariants}>
             
@@ -168,9 +171,7 @@ const RouteAnalyzer = () => {
           </motion.div>
         )}
 
-        {/* MODAIS */}
         <AnimatePresence>
-          {/* MODAL MUID (NOTA FISCAL) */}
           {selectedMuidData && (
             <motion.div className="ide-modal-overlay" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setSelectedMuidData(null)}>
               <motion.div className="ide-modal-window" style={{ maxWidth: '850px', border: '1px solid #10b981', zIndex: 9999 }} onClick={e => e.stopPropagation()} initial={{ scale: 0.9, y: 20 }} animate={{ scale: 1, y: 0 }}>
@@ -179,14 +180,12 @@ const RouteAnalyzer = () => {
                   <X size={20} onClick={() => setSelectedMuidData(null)} style={{ cursor: 'pointer' }} />
                 </div>
                 <div className="ide-window-body" style={{ padding: '20px', background: '#0f172a' }}>
-                  {/* 🔥 AGORA ELE ABRE O MODAL AO INVÉS DO CONSOLE.LOG */}
                   <MongoInvoiceCard nf={selectedMuidData} onOpenJson={(nf) => setSelectedJsonData(nf)} />
                 </div>
               </motion.div>
             </motion.div>
           )}
 
-          {/* MODAL DE EXIBIÇÃO DO EOD */}
           {selectedEodData && selectedEodData.length > 0 && (
             <motion.div className="ide-modal-overlay" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setSelectedEodData(null)}>
               <motion.div className="ide-modal-window" style={{ maxWidth: '850px', border: '1px solid #38bdf8', zIndex: 9999 }} onClick={e => e.stopPropagation()} initial={{ scale: 0.9, y: 20 }} animate={{ scale: 1, y: 0 }}>
@@ -202,7 +201,6 @@ const RouteAnalyzer = () => {
                 <div className="ide-window-body" style={{ padding: '20px', background: '#0f172a', maxHeight: '70vh', overflowY: 'auto' }}>
                   {selectedEodData.map((eodItem, index) => (
                     <div key={index} style={{ marginBottom: index !== selectedEodData.length - 1 ? '20px' : '0' }}>
-                      {/* 🔥 AGORA ELE ABRE O MODAL AO INVÉS DO CONSOLE.LOG */}
                       <MongoEodCard 
                         eod={eodItem} 
                         onOpenJson={(eodObj) => setSelectedJsonData(eodObj)} 
@@ -216,7 +214,6 @@ const RouteAnalyzer = () => {
             </motion.div>
           )}
 
-          {/* 🔥 NOVO: MODAL MAC OS COM BARRA DE BUSCA JSON (Para Notas e EODs) */}
           {selectedJsonData && (
             <motion.div 
               className="ide-modal-overlay" 
@@ -224,7 +221,7 @@ const RouteAnalyzer = () => {
               animate={{ opacity: 1 }} 
               exit={{ opacity: 0 }} 
               onClick={() => { setSelectedJsonData(null); setJsonSearchTerm(''); }}
-              style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.7)', position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 99999 }} // 🔥 Z-INDEX GIGANTE PRA FICAR POR CIMA!
+              style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.7)', position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 99999 }}
             >
               <motion.div 
                 className="ide-modal-window" 
@@ -265,7 +262,6 @@ const RouteAnalyzer = () => {
                 <div style={{ padding: '20px', maxHeight: '75vh', overflowY: 'auto', background: '#0d1117' }}>
                   <pre style={{ color: '#a5b4fc', fontSize: '13.5px', whiteSpace: 'pre-wrap', wordBreak: 'break-all', margin: 0, fontFamily: "'Consolas', 'Courier New', monospace", lineHeight: '1.5' }}>
                     {(() => {
-                      // 🔥 Aceita parsedJson (EOD) ou cJson convertido (Invoice)
                       const jsonToRender = selectedJsonData.parsedJson || (typeof selectedJsonData.cJson === 'string' ? JSON.parse(selectedJsonData.cJson) : selectedJsonData.cJson);
                       const jsonString = JSON.stringify(jsonToRender, null, 2);
                       
@@ -286,10 +282,11 @@ const RouteAnalyzer = () => {
           )}
         </AnimatePresence>
 
+        {/* 🔥 CORREÇÃO 3: Agora ele usa a função que avisa o Contexto Global */}
         <ConnectionModal 
           isOpen={isConnectionModalOpen} 
           onClose={() => setIsConnectionModalOpen(false)} 
-          onSave={handleSaveConnection}
+          onSave={handleSaveConnectionWrapper}
         />
 
       </div>
