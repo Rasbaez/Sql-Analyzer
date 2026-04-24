@@ -7,7 +7,25 @@ Um aplicativo desktop construído com **Electron** e **React** focado em anális
 
 * **🛡️ Corretor e Validador de SQL (Proteção de Dados):**
   * Mecanismo de segurança rigoroso que intercepta e faz o *parser* de queries de `UPDATE` e `DELETE` antes da execução.
-  * **Prevenção de Desastres:** Bloqueia automaticamente execuções sem a cláusula `WHERE`, evitando alterações acidentais em massa no banco de dados.
+  * **Prevenção de Desastres:** Bloqueia automaticamente execuções sem a cláusula `WHERE`, evitando alterações acidentais em    massa no banco de dados.
+
+
+
+📊 RouteAnalyzer — Dashboard de Telemetria e BI
+O RouteAnalyzer é o "Coração" e a "War Room" da aplicação. Ele foi desenvolvido para centralizar diagnósticos complexos de logística, permitindo que um analista entenda a saúde de uma rota em segundos, cruzando dados de infraestruturas completamente diferentes.
+
+✨ Funcionalidades Principais
+🔗 Integração Híbrida (SQL + NoSQL): O módulo realiza o cruzamento dinâmico entre dados mestres de servidores SQL Server e logs de telemetria/fechamentos (EOD) armazenados em MongoDB, utilizando o cMessageUniqueID como ponte.
+
+🎭 Status Overlay System: A interface é viva! Através de um sistema de overlays dinâmicos, o dashboard muda suas cores e alertas (Finalizado, Iniciado, Bloqueado) em tempo real, baseando-se na telemetria capturada.
+
+🔍 Visualizador de JSON (IDE Style): Inclui um inspetor de payloads integrado com funcionalidade de busca e syntax highlighting, permitindo analisar notas fiscais e eventos de telemetria sem sair do app.
+
+🚀 Diagnóstico de Bloqueios: Identifica automaticamente usuários com acesso restrito (mc1enabled), evitando chamados desnecessários para o suporte.
+
+
+
+
   * **Análise de Impacto:** Extrai parâmetros da query, identifica as tabelas afetadas e valida a presença de limitadores (como `TOP`), garantindo controle total sobre as modificações de dados críticos.
   * ** Emite um laudo em PDF comprovando que a análise da query passou pelo crivo do programa
 
