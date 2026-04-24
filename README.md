@@ -1,5 +1,5 @@
 
-# 🚀 MC1 SQL & Mongo Analyzer - Enterprise Edition
+# 🚀  SQL & Mongo Analyzer - Enterprise Edition
 
 Um aplicativo desktop construído com **Electron** e **React** focado em análise avançada de banco de dados, automação de rotinas (Hypercare), diagnóstico de preços e segurança na execução de scripts.
 
