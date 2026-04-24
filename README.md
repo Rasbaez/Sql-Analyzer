@@ -1,0 +1,43 @@
+
+# 🚀 MC1 SQL & Mongo Analyzer - Enterprise Edition
+
+Um aplicativo desktop construído com **Electron** e **React** focado em análise avançada de banco de dados, automação de rotinas (Hypercare), diagnóstico de preços e segurança na execução de scripts.
+
+## ✨ Principais Funcionalidades
+
+* **🛡️ Corretor e Validador de SQL (Proteção de Dados):**
+  * Mecanismo de segurança rigoroso que intercepta e faz o *parser* de queries de `UPDATE` e `DELETE` antes da execução.
+  * **Prevenção de Desastres:** Bloqueia automaticamente execuções sem a cláusula `WHERE`, evitando alterações acidentais em massa no banco de dados.
+  * **Análise de Impacto:** Extrai parâmetros da query, identifica as tabelas afetadas e valida a presença de limitadores (como `TOP`), garantindo controle total sobre as modificações de dados críticos.
+  * ** Emite um laudo em PDF comprovando que a análise da query passou pelo crivo do programa
+
+* **💰 Analisador de Preços (SQL):** * Consulta de Preço Base (I007) e Condições ZBDC/ZBDI rodando em paralelo no backend Node.js e renderizando em tabelas dinâmicas fluídas no frontend.
+
+* **🍃 Integração MongoDB:** * Leitura de Invoices e rotinas de End of Day (EOD) diretamente de coleções NoSQL com filtros avançados.
+
+* **🔌 Gerenciador de Conexões Seguras:** * Interface centralizada para salvar, testar e persistir histórico de credenciais de banco de dados (SQL Server e Mongo) localmente.
+
+* **🤖 Automação Hypercare:** * Execução de scripts locais e manipulação de arquivos executáveis direto pelo aplicativo, com captura de logs de sistema em tempo real (via `child_process`).
+
+* **📄 Geração de Laudos:** * Exportação de resultados de consultas e logs de diagnóstico diretamente para PDF para envio imediato a clientes ou equipes de suporte.
+
+## 🏗️ Padrões de Arquitetura e Design (Design Patterns)
+
+Este projeto foi desenhado focando em escalabilidade, segurança e código limpo, aplicando os seguintes padrões:
+
+* **Arquitetura IPC (Inter-Process Communication):** Separação estrita de responsabilidades entre o *Renderer Process* (Frontend/React) e o *Main Process* (Backend/Node.js). O frontend nunca acessa o banco de dados diretamente, operando em um ambiente isolado por segurança (*Context Isolation*).
+* **Bridge Pattern:** Utilizado no arquivo `preload.js` para criar uma ponte segura e controlada entre o navegador e o sistema operacional, expondo apenas funções estritamente necessárias.
+* **Singleton & Facade Pattern:** A classe `ElectronAPIService` atua como uma *Facade*, envelopando todas as chamadas do frontend para o backend. Ela implementa o padrão *Singleton* para garantir uma instância única em toda a aplicação, centralizando o tratamento de erros (`try/catch` global) e logs sistêmicos.
+* **Modularização (Separation of Concerns):** A lógica do servidor Node.js é fatiada em controladores específicos (`sqlHandlers.js`, `mongoHandlers.js`), mantendo o arquivo `main.js` limpo e focado apenas no ciclo de vida da janela do Electron.
+* **Custom Hooks & Componentização:** Regras de negócio complexas do frontend foram extraídas dos componentes visuais e encapsuladas em *Custom Hooks* (ex: `useConnectionModal`), promovendo alta reutilização e facilitando testes. O estado global é gerenciado nativamente através da **Context API**.
+
+## 🛠️ Tecnologias Utilizadas
+* **Frontend:** React, Context API, Custom Hooks, CSS Grid/Flexbox, Lucide Icons.
+* **Backend (Desktop):** Electron, Node.js.
+* **Bancos de Dados:** SQL Server (`mssql/msnodesqlv8` com Windows Authentication Fallback) e MongoDB (`mongodb`).
+* **Segurança:** Parser customizado para validação semântica de SQL.
+
+## ⚙️ Como rodar o projeto localmente
+1. Clone este repositório: `git clone https://github.com/SEU_USUARIO/NOME_DO_REPO.git`
+2. Instale as dependências: `npm install`
+3. Inicie o app em modo de desenvolvimento: `npm run electron-dev`

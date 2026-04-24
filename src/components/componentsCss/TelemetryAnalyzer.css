@@ -1,0 +1,1319 @@
+/* ===========================
+   BASE / CONTAINER
+   =========================== */
+
+.telemetry-container {
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 30px 40px 50px 40px;
+  box-sizing: border-box;
+  color: #f8fafc;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  position: relative;
+  
+}
+
+.telemetry-header {
+  margin-bottom: 25px;
+}
+
+.telemetry-title h2 {
+  font-size: 28px;
+  margin: 0 0 5px 0;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.telemetry-title p {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+/* 🔥 TÍTULO + BOTÃO LIMPAR */
+
+.telemetry-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.clear-logs-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.clear-logs-btn:hover {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: #ef4444;
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.2);
+}
+
+/* ===========================
+   ÁREA DE UPLOAD
+   =========================== */
+
+.upload-zone {
+  border: 2px dashed rgba(56, 189, 248, 0.3);
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 40px;
+  text-align: center;
+  transition: all 0.3s ease;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.upload-zone.dragging {
+  border-color: #38bdf8;
+  background: rgba(56, 189, 248, 0.1);
+  transform: scale(1.02);
+}
+
+.upload-zone h3 {
+  margin: 0;
+  color: #e2e8f0;
+}
+
+.upload-zone p {
+  margin: 0;
+  color: #64748b;
+  font-size: 13px;
+}
+
+.file-input-hidden {
+  display: none;
+}
+
+.upload-btn {
+  margin-top: 15px;
+  background: #0ea5e9;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.upload-btn:hover {
+  background: #0284c7;
+}
+
+.loading-bar {
+  text-align: center;
+  padding: 20px;
+  color: #38bdf8;
+  font-weight: bold;
+  animation: pulseText 1.5s infinite;
+}
+
+/* ===========================
+   TABELA TIMELINE
+   =========================== */
+
+.timeline-panel {
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.timeline-panel-header {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 15px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.timeline-panel-header h3 {
+  margin: 0;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #e2e8f0;
+}
+
+
+
+
+
+/* Cores das Colunas */
+.col-time {
+  font-family: monospace;
+  color: #cbd5e1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.col-file {
+  color: #64748b;
+  font-size: 11px;
+}
+
+/* Badges de Ação */
+.action-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.flow-name {
+  color: #f8fafc;
+  font-family: monospace;
+}
+
+/* Cores por Linha */
+.row-Workflow-Start { background: rgba(34, 197, 94, 0.02); }
+.row-Workflow-End   { background: rgba(239, 68, 68, 0.02); }
+.row-Action-Set     { background: rgba(59, 130, 246, 0.02); }
+
+/* Badges de Tempo (CPU) */
+.time-badge {
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-family: monospace;
+}
+.time-badge.good {
+  background: rgba(34, 197, 94, 0.1);
+  color: #4ade80;
+}
+.time-badge.warning {
+  background: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+  box-shadow: 0 0 8px rgba(239,68,68,0.4);
+}
+
+/* Lista de Variáveis */
+.var-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.var-item {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 4px 8px;
+  border-radius: 4px;
+  border-left: 2px solid #38bdf8;
+  font-family: monospace;
+  font-size: 12px;
+}
+
+.var-name { color: #93c5fd; }
+.var-value { color: #fde047; font-weight: bold; }
+
+/* Preview de SQL na tabela */
+.sql-preview {
+  color: #fde047;
+  font-size: 11px;
+  background: rgba(0,0,0,0.3);
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+
+/* Avisos / limites */
+.limit-warning {
+  text-align: center;
+  padding: 15px;
+  background: rgba(245, 158, 11, 0.1);
+  color: #fcd34d;
+  font-size: 13px;
+  border-top: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.no-results-warning {
+  text-align: center;
+  padding: 40px;
+  color: #94a3b8;
+  font-size: 15px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* ===========================
+   BARRA DE BUSCA / FILTROS
+   =========================== */
+
+/* Barra de busca tecnológica */
+.power-find-bar {
+  display: flex;
+  gap: 15px;
+  background: rgba(15, 23, 42, 0.8);
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+/* Wrapper do input de busca (uso geral) */
+.search-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-input-wrapper input {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 10px 10px 10px 40px;
+  border-radius: 6px;
+  color: #38bdf8;
+  font-family: monospace;
+}
+
+.search-input-wrapper input::placeholder {
+  color: #475569;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  color: #64748b;
+}
+.clear-search {
+  position: absolute;
+  right: 12px;
+  cursor: pointer;
+  color: #64748b;
+}
+
+.type-filter {
+  background: #1e293b;
+  color: white;
+  border: 1px solid #334155;
+  padding: 0 15px;
+  border-radius: 6px;
+}
+
+/* Smart Filters Container */
+.smart-filters-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Separa a linha de cima da barra de busca em baixo */
+  width: 100%;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.filters-row {
+  display: grid;
+  /* 🔥 A MÁGICA: Força a criar exatamente 5 colunas do mesmo tamanho */
+  grid-template-columns: repeat(5, 1fr);
+  gap: 15px;
+  align-items: flex-end; /* Alinha a base dos inputs */
+}
+
+
+.filter-group label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #8b949e;
+  margin-bottom: 6px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.filter-input {
+  width: 100%;
+  padding: 10px 12px;
+  background-color: #0d1117;
+  border: 1px solid #30363d;
+  color: #c9d1d9;
+  border-radius: 6px;
+  font-size: 13px;
+  outline: none;
+  box-sizing: border-box; /* Garante que o padding não quebre o width */
+  transition: all 0.2s ease;
+}
+
+.filter-input:focus {
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+}
+
+.filter-group label {
+  font-size: 12px;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 600;
+}
+
+.filter-group select {
+  background: #1e293b;
+  color: #f1f5f9;
+  border: 1px solid #334155;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-family: inherit;
+  cursor: pointer;
+  outline: none;
+}
+
+.filter-group select:focus {
+  border-color: #38bdf8;
+}
+
+
+/* Input para datalist/autocomplete */
+.filter-input {
+  background: #1e293b;
+  color: #f1f5f9;
+  border: 1px solid #334155;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-family: inherit;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 13px;
+  transition: border-color 0.2s;
+}
+
+.filter-input:focus {
+  border-color: #38bdf8;
+}
+
+.filter-input::placeholder {
+  color: #64748b;
+}
+
+/* Container busca + botão aplicar */
+.search-bar-row {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.search-bar-row .search-input-wrapper {
+  flex: 1;
+}
+
+/* Botão aplicar filtros */
+.apply-filters-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #0ea5e9;
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+  height: 40px;
+}
+
+.apply-filters-btn:hover {
+  background: #0284c7;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 15px rgba(14, 165, 233, 0.4);
+}
+
+.apply-filters-btn:active {
+  transform: translateY(1px);
+}
+
+.apply-filters-btn:disabled {
+  background: #475569;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+/* ===========================
+   TIMELINE STREAM (CARDS)
+   =========================== */
+
+.telemetry-stream {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px 0;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+/* Card base */
+.event-card-v2 {
+  display: flex;
+  background: #1e293b;
+  border-radius: 8px;
+  border-left: 5px solid #38bdf8;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.event-card-v2:hover {
+  transform: translateX(5px);
+  background: rgba(30, 41, 59, 0.9);
+}
+
+/* Cores por Tipo / Nível */
+.event-card-v2.type-Database-Query { border-left-color: #f59e0b; }
+.event-card-v2.type-Workflow-Start { border-left-color: #10b981; }
+.event-card-v2.level-error,
+.event-card-v2.level-fatal {
+  border-left-color: #ef4444;
+  background: rgba(239, 68, 68, 0.05);
+}
+
+/* Sidebar do Tempo */
+.card-sidebar {
+  padding: 15px;
+  min-width: 90px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.2);
+  border-right: 1px solid rgba(255,255,255,0.05);
+}
+
+.event-time {
+  font-family: monospace;
+  font-size: 12px;
+  color: #94a3b8;
+  margin-bottom: 8px;
+}
+
+/* Conteúdo principal */
+.card-main {
+  padding: 12px 18px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.event-category {
+  font-size: 10px;
+  font-weight: bold;
+  color: #38bdf8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.event-workflow {
+  font-weight: 600;
+  color: #f1f5f9;
+  font-size: 13px;
+}
+
+.event-timer {
+  font-size: 10px;
+  background: #064e3b;
+  color: #34d399;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.event-timer.slow {
+  background: #7f1d1d;
+  color: #fca5a5;
+}
+
+.event-form {
+  font-size: 11px;
+  color: #64748b;
+  margin-left: auto;
+}
+
+/* Bloco SQL */
+.sql-block {
+  background: #0f172a;
+  padding: 10px;
+  border-radius: 6px;
+  font-family: 'Consolas', monospace;
+  font-size: 12px;
+  color: #fbbf24;
+  border: 1px solid #334155;
+  line-height: 1.4;
+  white-space: pre-wrap;
+}
+
+/* Variáveis em pills */
+.variable-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.var-pill {
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  padding: 3px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.v-key { color: #94a3b8; margin-right: 5px; }
+.v-val { color: #38bdf8; font-weight: bold; }
+
+/* Footer do card */
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  padding-top: 8px;
+  margin-top: 4px;
+}
+
+.footer-item {
+  font-size: 11px;
+  color: #475569;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.mini-details-btn {
+  background: none;
+  border: none;
+  color: #38bdf8;
+  font-size: 11px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ===========================
+   MODAIS / RAW VIEWER
+   =========================== */
+
+.log-modal-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.8);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1000;
+}
+
+.log-modal-content {
+  background: #0f172a;
+  width: 80%; max-width: 900px;
+  max-height: 80vh;
+  border-radius: 12px;
+  border: 1px solid #38bdf8;
+  display: flex; flex-direction: column;
+}
+
+.modal-header {
+  padding: 15px 20px;
+  border-bottom: 1px solid #1e293b;
+  display: flex; justify-content: space-between; align-items: center;
+}
+
+.modal-body {
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.raw-viewer,
+.raw-viewer-pre {
+  background: #000;
+  color: #4ade80;
+  padding: 15px;
+  border-radius: 8px;
+  max-height: 400px;
+  overflow: auto;
+  font-family: monospace;
+  font-size: 12px;
+  border: 1px solid #1e293b;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.view-details-btn {
+  background: rgba(56, 189, 248, 0.1);
+  color: #38bdf8;
+  border: 1px solid #38bdf8;
+  padding: 5px 10px;
+  border-radius: 4px;
+  display: flex; align-items: center; gap: 5px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+/* ===========================
+   BACKGROUND EM VÍDEO
+   =========================== */
+
+/* Garante que o container pai seja a referência */
+.telemetry-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+/* O vídeo não pode atrapalhar o clique nos inputs */
+.video-background-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Fica atrás de tudo */
+  pointer-events: none; /* Cliques passam direto por ele */
+}
+
+.video-background-element {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.3; /* Ajuste para não ofuscar o texto */
+}
+
+/* Header precisa estar na frente do vídeo */
+.telemetry-header {
+  position: relative;
+  z-index: 10;
+  background: rgba(15, 23, 42, 0.8); /* Fundo semi-transparente para o vídeo aparecer atrás */
+  backdrop-filter: blur(10px);
+  padding: 20px;
+}
+
+/* Loading não deve cobrir o header se você quiser ver o botão de limpar */
+.loading-overlay-massive {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 0;
+}
+
+/* 1. Remove qualquer fundo branco global que esteja bloqueando o vídeo */
+body, html, #root {
+  background-color: transparent !important; /* Importante para o vídeo aparecer */
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+/* 2. O container principal precisa ser transparente */
+.telemetry-container {
+  position: relative;
+  min-height: 100vh;
+  background: transparent; /* Deixa o vídeo vazar por trás */
+  padding: 20px; /* Dá um respiro para os painéis não colarem na borda da tela */
+}
+
+/* 3. Trava o vídeo na tela inteira, bem no fundo */
+.video-background-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none; /* Deixa o clique passar por ele */
+  background-color: #0f172a; /* Uma cor escura de fallback caso o vídeo demore a carregar */
+}
+
+.video-background-element {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Faz o vídeo preencher a tela toda sem esticar torto */
+  opacity: 0.4; /* Escurece o vídeo para o seu texto branco dar leitura */
+}
+
+/* 4. Opcional: Deixar os painéis levemente transparentes para um visual mais "Tech" */
+.telemetry-header, .timeline-panel {
+  /* Se o seu painel hoje é solid, ex: background: #1e293b; mude para rgba: */
+  background: rgba(30, 41, 59, 0.85); 
+  backdrop-filter: blur(8px); /* Deixa o fundo do painel com efeito de vidro fosco */
+  border-radius: 8px; /* Deixa os cantos arredondados bonitos igual no print */
+  margin-bottom: 20px;
+}
+
+
+/* ===========================
+   LOADING OVERLAY GLOBAL
+   =========================== */
+
+.loading-overlay-massive {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* Se quiser um "card" de loading separado, use essa classe em vez de loading-overlay-massive */
+.loading-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 20px;
+  background: rgba(15, 23, 42, 0.4);
+  border-radius: 12px;
+}
+
+.spinner-hacker {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(56, 189, 248, 0.2);
+  border-top-color: #38bdf8;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* Cores do Syntax Highlighting */
+.sql-keyword { color: #f472b6; font-weight: bold; } /* Rosa/Roxo para SELECT, FROM... */
+.sql-string { color: #34d399; } /* Verde para strings '0546' */
+.sql-number { color: #fbbf24; } /* Amarelo para números */
+
+.enhanced-modal {
+  max-width: 850px !important;
+  border: 1px solid #334155;
+  background: #0f172a; /* Azul bem escuro */
+}
+
+.metadata-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  background: rgba(30, 41, 59, 0.5);
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #cbd5e1;
+}
+
+.sql-container {
+  background: #000000;
+  border-radius: 8px;
+  border: 1px solid #1e293b;
+  overflow: hidden;
+}
+
+.sql-header {
+  background: #1e293b;
+  padding: 8px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  font-weight: bold;
+  color: #94a3b8;
+}
+
+.copy-sql-btn {
+  background: transparent;
+  border: 1px solid #475569;
+  color: #f8fafc;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.2s;
+}
+
+.copy-sql-btn:hover { background: #334155; }
+
+.sql-viewport {
+  padding: 15px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.sql-code {
+  font-family: 'Fira Code', 'Courier New', monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  white-space: pre-wrap; /* Força quebra de linha automática */
+  margin: 0;
+  color: #e2e8f0;
+}
+
+/* Scrollbar fina para o código */
+.sql-viewport::-webkit-scrollbar { width: 6px; }
+.sql-viewport::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+
+/* ===========================
+   ANIMAÇÕES
+   =========================== */
+
+@keyframes pulseText {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.spin,
+.spin-icon {
+  animation: spin 1s linear infinite;
+}
+
+/* ==========================================
+   💻 IDE INSPECTOR MODAL (Novo Modal)
+   ========================================== */
+.ide-modal-overlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.7); 
+  backdrop-filter: blur(5px);
+  display: flex; justify-content: center; align-items: center; 
+  z-index: 1000;
+}
+
+.ide-modal-window {
+  width: 90%; max-width: 1100px; 
+  background: #0d1117; /* GitHub Dark Theme Background */
+  border-radius: 10px; 
+  border: 1px solid #30363d;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6); 
+  display: flex; flex-direction: column;
+  overflow: hidden; 
+  animation: modalPop 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes modalPop { 
+  from { opacity: 0; transform: scale(0.95) translateY(20px); } 
+  to { opacity: 1; transform: scale(1) translateY(0); } 
+}
+
+/* Header da Janela Estilo macOS */
+.ide-window-header {
+  background: #161b22; 
+  padding: 12px 15px; 
+  display: flex; align-items: center;
+  border-bottom: 1px solid #30363d;
+}
+
+.ide-window-controls { display: flex; gap: 8px; width: 60px; }
+.dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+.dot.close { background: #ff5f56; cursor: pointer; transition: 0.2s; }
+.dot.close:hover { filter: brightness(1.2); }
+.dot.minimize { background: #ffbd2e; }
+.dot.maximize { background: #27c93f; }
+
+.ide-window-title { 
+  flex: 1; text-align: center; 
+  color: #8b949e; font-size: 13px; font-family: monospace; 
+}
+
+.ide-window-actions button { 
+  background: none; border: none; color: #8b949e; 
+  cursor: pointer; display: flex; align-items: center;
+}
+.ide-window-actions button:hover { color: #f8fafc; }
+
+/* Barra de Contexto (Pills) */
+.ide-context-panel {
+  display: flex; gap: 10px; padding: 12px 15px; 
+  background: #0d1117; border-bottom: 1px solid #30363d; 
+  flex-wrap: wrap;
+}
+
+.ide-tag {
+  display: flex; align-items: center; gap: 6px; 
+  background: #21262d; color: #c9d1d9; 
+  padding: 4px 12px; border-radius: 12px; font-size: 12px;
+  border: 1px solid #30363d; font-family: monospace;
+}
+.ide-tag.highlight { border-color: #38bdf8; color: #38bdf8; }
+.ide-tag.danger { border-color: #f87171; color: #f87171; }
+.ide-tag.success { border-color: #4ade80; color: #4ade80; }
+
+/* Área de Código / Payload */
+.ide-payload-panel { background: #0d1117; display: flex; flex-direction: column; }
+
+.ide-payload-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 8px 15px; background: #161b22; color: #8b949e; 
+  font-size: 12px; font-family: monospace;
+  border-bottom: 1px solid #30363d;
+}
+
+.ide-copy-btn {
+  background: #21262d; color: #c9d1d9; border: 1px solid #30363d;
+  border-radius: 4px; padding: 4px 10px; cursor: pointer; 
+  display: flex; align-items: center; gap: 6px;
+  transition: all 0.2s; font-family: 'Inter', sans-serif; font-size: 11px;
+}
+.ide-copy-btn:hover { background: #38bdf8; color: #0f172a; border-color: #38bdf8; }
+
+.ide-payload-content { 
+  padding: 20px; max-height: 50vh; overflow-y: auto; 
+}
+
+.sql-code-block { 
+  margin: 0; font-family: 'Fira Code', 'Consolas', monospace; 
+  font-size: 14px; color: #c9d1d9; line-height: 1.6; 
+}
+
+/* Grid de Variáveis do WTM */
+.ide-var-grid { 
+  display: grid; 
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+  gap: 12px; 
+}
+
+.ide-var-card { 
+  background: #161b22; border: 1px solid #30363d; 
+  border-radius: 6px; padding: 12px; 
+}
+
+.ide-var-key { 
+  color: #8b949e; font-size: 11px; margin-bottom: 6px; 
+  text-transform: uppercase; font-weight: bold; letter-spacing: 1px;
+}
+
+.ide-var-val { 
+  color: #79c0ff; font-family: monospace; font-size: 14px; 
+  word-break: break-all; background: rgba(0,0,0,0.3);
+  padding: 6px; border-radius: 4px;
+}
+
+/* Syntax Highlighting Cores (Adaptadas para Dark Theme) */
+.sql-keyword { color: #ff7b72; font-weight: bold; } /* Rosa/Vermelho Neon */
+.sql-string { color: #a5d6ff; } /* Azul Claro */
+.sql-number { color: #d2a8ff; } /* Roxo/Lilás */
+
+/* Cabeçalho do Payload com Abas */
+.ide-payload-header {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  background: #161b22; color: #8b949e; 
+  border-bottom: 1px solid #30363d;
+  padding: 0 15px; /* Ajuste no padding para a aba colar na borda */
+}
+
+.ide-tabs {
+  display: flex;
+  gap: 2px;
+}
+
+.ide-tab-btn {
+  background: transparent;
+  color: #8b949e;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-family: monospace;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+.ide-tab-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #c9d1d9;
+}
+
+.ide-tab-btn.active {
+  color: #38bdf8;
+  border-bottom-color: #38bdf8;
+  background: rgba(56, 189, 248, 0.05);
+}
+
+/* Ajuste no botão de copiar para alinhar com as abas */
+.ide-copy-btn {
+  background: #21262d; color: #c9d1d9; border: 1px solid #30363d;
+  border-radius: 4px; padding: 4px 10px; cursor: pointer; 
+  display: flex; align-items: center; gap: 6px;
+  transition: all 0.2s; font-family: 'Inter', sans-serif; font-size: 11px;
+  margin-bottom: 8px; /* Levanta um pouco para alinhar visualmente */
+}
+.ide-copy-btn:hover { 
+  background: #38bdf8;
+  color: #0f172a; 
+  border-color: #38bdf8; 
+}
+
+/* ==========================================
+   🧩 SEPARADORES DE FLUXO (WTM TELEMETRIA)
+   ========================================== */
+
+.workflow-boundary-row {
+  background: transparent !important;
+  pointer-events: none; /* Para não bugar o hover */
+}
+
+.workflow-boundary-row td {
+  padding: 20px 15px 5px 15px !important;
+  border-bottom: none !important;
+}
+
+.workflow-boundary-content {
+  display: flex;
+  align-items: center;
+  width: 100%; /* 🔥 A MÁGICA ESTÁ AQUI: Força a div a ocupar toda a tabela */
+  box-sizing: border-box; /* Garante que o padding não faça a linha vazar pra fora */
+  gap: 10px;
+  color: #38bdf8;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.boundary-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(56, 189, 248, 0.4) 0%, rgba(56, 189, 248, 0) 100%);
+}
+
+
+.row-flow-finish td {
+  border-bottom: 1px dashed rgba(56, 189, 248, 0.4) !important;
+}
+
+/* ==========================================
+   📦 CARDS DE FLUXO (ACCORDIONS)
+   ========================================== */
+.workflow-card {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+}
+
+.workflow-card:hover {
+  border-color: #38bdf8;
+}
+
+.workflow-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  background: rgba(56, 189, 248, 0.05);
+  cursor: pointer;
+  user-select: none;
+}
+
+.workflow-card-header:hover {
+  background: rgba(56, 189, 248, 0.1);
+}
+
+.workflow-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.workflow-name {
+  color: #38bdf8;
+  font-weight: 700;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.workflow-stats {
+  display: flex;
+  gap: 15px;
+  font-size: 12px;
+  color: #8b949e;
+}
+
+.stat-badge {
+  background: #0d1117;
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid #30363d;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.stat-badge.error {
+  color: #f87171;
+  border-color: rgba(248, 113, 113, 0.3);
+}
+
+/* ==========================================
+   📐 CSS GRID (A "Tabela Falsa")
+   ========================================== */
+.telemetry-grid {
+  background: #0d1117;
+  border-top: 1px solid #30363d;
+  font-size: 13px;
+}
+
+.grid-header, .grid-row {
+  display: grid;
+  /* 🔥 A MÁGICA AQUI: Aumentei o Tempo para 110px e a Tela para 180px */
+  grid-template-columns: 110px 180px 2fr 80px 3fr 80px; 
+  gap: 15px;
+  align-items: center;
+  padding: 10px 20px;
+  border-bottom: 1px solid #21262d;
+}
+
+
+.grid-header {
+  font-weight: 600;
+  color: #8b949e;
+  text-transform: uppercase;
+  font-size: 11px;
+  background: #161b22;
+  letter-spacing: 0.5px;
+}
+
+.grid-row:hover {
+  /* Fundo azul neon bem transparente */
+  background: rgba(56, 189, 248, 0.08); 
+  
+  /* Bônus: Deixa a transição suave para não "piscar" seco na tela */
+  transition: background 0.2s ease-in-out;
+}
+
+
+
+/* Ajustes das "células" falsas */
+.col-time { 
+  color: #8b949e; 
+  display: flex; 
+  align-items: center; 
+  gap: 5px; 
+  white-space: nowrap; /* Impede o horário de quebrar linha */
+}
+
+.col-file { 
+  color: #c9d1d9; 
+  font-weight: 500; 
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis; /* Coloca os "..." se o nome da tela for gigante */
+}
+.col-action { display: flex; align-items: center; gap: 8px; }
+.col-elapsed { font-weight: bold; }
+.col-vars { overflow: hidden; }
+
+
+/* =========================================
+   🧾 INVOICE ANALYZER - ESPECÍFICO
+   ========================================= */
+
+/* Grid Redimensionado */
+.invoice-grid-layout { grid-template-columns: 100px 120px 2fr 250px 110px !important; }
+
+/* Status Badges e Textos (Tabela) */
+.badge-b2b { border-color: #fbbf24 !important; color: #fbbf24 !important; background: rgba(251, 191, 36, 0.1) !important; }
+.badge-organic { border-color: #22d3ee !important; color: #22d3ee !important; background: rgba(34, 211, 238, 0.1) !important; }
+.badge-success { border-color: #4ade80 !important; color: #4ade80 !important; }
+.badge-contingency { border-color: #c084fc !important; color: #c084fc !important; }
+.badge-edit { border-color: #38bdf8 !important; color: #38bdf8 !important; }
+.badge-cancel { border-color: #ef4444 !important; color: #ef4444 !important; }
+
+.status-col { display: flex; flex-direction: column; }
+.text-success { color: #4ade80; font-weight: 600; }
+.text-contingency { color: #c084fc; font-weight: 600; }
+.text-edit { color: #38bdf8; font-weight: 600; }
+.text-cancel { color: #ef4444; font-weight: 600; }
+.text-cancelling { color: #f87171; font-weight: 600; }
+.text-cancel-edit { color: #fca5a5; font-weight: 600; }
+.text-inactive { color: #94a3b8; font-weight: 600; }
+.text-error { color: #f87171; font-weight: 600; }
+
+.sub-text-edit { font-size: 11px; color: #bae6fd; }
+.sub-text-cancel { font-size: 11px; color: #fca5a5; }
+.sub-text-cancel-edit { font-size: 11px; color: #fecaca; }
+
+/* Modal Wide & Alerts */
+.modal-window-wide { max-width: 1200px; width: 95%; }
+.alert-box { display: flex; align-items: center; gap: 15px; padding: 15px 20px; }
+.alert-box.edit-box { background: rgba(56, 189, 248, 0.1); border-bottom: 1px solid #38bdf8; }
+.alert-box.cancel-box { background: rgba(239, 68, 68, 0.1); border-bottom: 1px solid #ef4444; }
+
+.alert-title { margin: 0; font-size: 18px; text-transform: uppercase; letter-spacing: 1px; }
+.alert-title.edit { color: #bae6fd; }
+.alert-title.cancel { color: #fca5a5; }
+
+.alert-desc { margin: 5px 0 0 0; font-family: monospace; font-size: 14px; }
+.alert-desc.edit { color: #7dd3fc; }
+.alert-desc.cancel { color: #f87171; }
+
+/* Minimap e Código */
+.modal-search-bar { display: flex; gap: 15px; padding: 12px 15px; background: #0d1117; border-bottom: 1px solid #30363d; align-items: center; flex-wrap: wrap; }
+.modal-search-input { flex: 1; min-width: 200px; margin: 0; }
+.modal-checkbox-label { color: #c9d1d9; font-size: 13px; display: flex; align-items: center; gap: 8px; cursor: pointer; font-weight: 500; }
+
+.code-view-container { display: flex; max-height: 65vh; overflow: hidden; }
+.minimap-container { width: 16px; min-width: 16px; background: #010409; border-right: 1px solid #30363d; position: relative; cursor: pointer; }
+.minimap-marker { position: absolute; width: 100%; height: 3px; background: #fbbf24; box-shadow: 0 0 4px #fbbf24; opacity: 0.9; z-index: 10; }
+.code-content { flex: 1; overflow-y: auto; }
+.code-pre-clean { white-space: pre-wrap; font-size: 13px; color: #c9d1d9; line-height: 1.5; margin: 0; border: none; border-radius: 0; }
+
+/* Utilitários Visuais */
+.flex-between-center { display: flex; width: 100%; justify-content: space-between; align-items: center; }
+.flex-align-center { display: flex; align-items: center; }
+.flex-shrink-0 { flex-shrink: 0; }
+.invoice-meta { color: #8b949e; font-size: 13px; margin-left: 12px; display: flex; align-items: center; font-weight: normal; }
+.invoice-meta-id { color: #fff; margin-left: 4px; }
+.stats-timestamp { color: #64748b; font-size: 12px; display: flex; align-items: center; gap: 4px; margin-left: 8px; }
+.text-payment { font-size: 12px; color: #c9d1d9; }
+.icon-ghost { display: inline; margin-bottom: -2px; }
+.icon-mr-6 { margin-right: 6px; }
+.icon-mr-4 { margin-right: 4px; }
+.opacity-50 { opacity: 0.5; }
+.bounce-anim { animation: bounce 2s infinite; }
+.loading-title { color: #38bdf8; margin-top: 20px; }
+.loading-pad { text-align: center; padding: 100px 20px; }

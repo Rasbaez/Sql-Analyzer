@@ -1,0 +1,157 @@
+/* 🎨 src/components/componentsCss/MongoEodAnalyzer.css */
+
+.eod-master-panel {
+  background: #2a3441; /* Cor de fundo idêntica à da print 2 */
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.eod-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255,255,255, 0.05);
+}
+
+.eod-title-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #f8fafc;
+}
+
+.eod-title-section h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.eod-path-badge {
+  display: flex;
+  align-items: center;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  color: #10b981;
+  font-weight: 500;
+}
+
+.eod-path-sep {
+  margin: 0 8px;
+  opacity: 0.5;
+}
+
+.eod-mongo-connect-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.eod-mongo-connect-btn.connected {
+  background: #059669;
+  color: white;
+}
+
+.eod-mongo-connect-btn.connected:hover {
+  background: #047857;
+}
+
+.eod-mongo-connect-btn:not(.connected) {
+  background: transparent;
+  border: 1px solid #059669;
+  color: #10b981;
+}
+
+.eod-mongo-connect-btn:not(.connected):hover {
+  background: rgba(16, 185, 129, 0.1);
+}
+
+.eod-search-area label {
+  display: block;
+  color: #94a3b8;
+  margin-bottom: 12px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.eod-textarea {
+  width: 100%;
+  padding: 15px;
+  background: #1e293b; /* Fundo mais escuro pro input */
+  border: 1px solid #334155;
+  border-radius: 8px;
+  color: #f8fafc;
+  font-family: monospace;
+  resize: vertical;
+  box-sizing: border-box; 
+  font-size: 14px;
+}
+
+.eod-textarea:focus {
+  outline: none;
+  border-color: #0ea5e9;
+  box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.2);
+}
+
+.eod-actions-wrapper {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+  justify-content: flex-end;
+}
+
+.eod-btn-clear {
+  padding: 10px 20px;
+  background: transparent;
+  border: 1px solid #ef4444;
+  color: #ef4444;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+
+.eod-btn-clear:hover {
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.eod-btn-search {
+  padding: 10px 24px;
+  background: #0ea5e9;
+  border: none;
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.eod-btn-search:hover:not(:disabled) {
+  background: #0284c7;
+}
+
+.eod-btn-search:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}

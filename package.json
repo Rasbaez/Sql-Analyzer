@@ -1,0 +1,76 @@
+{
+  "name": "corretor-sql-desktop",
+  "productName": "SQL Analyzer - PepsiCo",
+  "version": "1.0.0",
+  "author": "Roberto Baez",
+  "homepage": "./",
+  "description": "Analisador de Queries SQL para Suporte PepsiCo",
+  "main": "public/electron.js",
+  "dependencies": {
+    "framer-motion": "^12.38.0",
+    "httpntlm": "^1.7.7",
+    "i18next": "^26.0.4",
+    "i18next-browser-languagedetector": "^8.2.1",
+    "jspdf": "^4.2.1",
+    "jspdf-autotable": "^5.0.7",
+    "lucide-react": "^1.8.0",
+    "msnodesqlv8": "^5.1.8",
+    "mssql": "^12.2.1",
+    "mongodb": "^7.2.0",
+    "node-sql-parser": "^5.4.0",
+    "react": "^18.0.0",
+    "react-country-flag": "^3.1.0",
+    "react-dom": "^18.0.0",
+    "react-i18next": "^17.0.2",
+    "react-scripts": "5.0.1",
+    "sql-formatter": "^15.7.3"
+  },
+  "scripts": {
+    "start": "cross-env BROWSER=none DISABLE_ESLINT_PLUGIN=true react-scripts start",
+    "build": "cross-env DISABLE_ESLINT_PLUGIN=true react-scripts build",
+    "test": "jest",
+    "electron": "electron .",
+    "electron-dev": "concurrently \"npm run start\" \"wait-on http://localhost:3000 && cross-env ELECTRON_START_URL=http://localhost:3000 electron .\"",
+    "rebuild": "electron-rebuild -f -w msnodesqlv8",
+    "package": "electron-forge package --no-rebuild && copy extras\\Abrir_Analyzer.bat out\\SQLAnalyzer-win32-x64\\",
+    "make": "cross-env ELECTRON_FORGE_SKIP_REBUILD=true electron-forge make"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^7.11.1",
+    "@electron-forge/maker-squirrel": "^7.11.1",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.11.1",
+    "@electron/rebuild": "^3.6.0",
+    "@types/node": "^25.6.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "concurrently": "^8.2.2",
+    "cross-env": "^7.0.3",
+    "electron": "^28.0.0",
+    "electron-devtools-installer": "^4.0.0",
+    "electron-extension-installer": "^2.0.1",
+    "mongodb": "^7.2.0",
+    "typescript": "^4.9.5",
+    "wait-on": "^7.2.0"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {
+        "name": "SQL Analyzer",
+        "executableName": "SQLAnalyzer",
+        "icon": "./public/logo-mc1.ico",
+        "asar": true
+      },
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "SQLAnalyzer",
+            "setupIcon": "./public/logo-mc1.ico",
+            "setupExe": "SQLAnalyzer-Setup.exe",
+            "loadingGif": "./public/Shocked.gif"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,162 @@
+/* 💻 MongoInvoiceAnalyzer.css */
+
+/* --- ESTRUTURA DE CABEÇALHO E GRID --- */
+.mongo-context-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+    padding: 6px 14px;
+    border-radius: 8px;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.mongo-grid-inputs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.mongo-input-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 10px;
+    color: #38bdf8;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.mongo-action-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+    gap: 12px;
+}
+
+/* --- ESTADO DE LOADING --- */
+.loading-state-overlay {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px;
+    background: rgba(15, 23, 42, 0.5);
+    border-radius: 12px;
+    border: 1px dashed rgba(255, 255, 255, 0.1);
+    color: #94a3b8;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.animate-spin {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* --- CARDS DE RESULTADO --- */
+.mongo-invoice-card {
+    background: linear-gradient(145deg, #1e293b, #0f172a);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+.mongo-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    background: rgba(255, 255, 255, 0.02);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.mongo-header-id {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.mongo-status-badge {
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.mongo-status-active { background: rgba(16, 185, 129, 0.2); color: #10b981; }
+.mongo-status-inactive { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+
+.mongo-card-body {
+    display: grid;
+    grid-template-columns: 1.2fr 1.5fr 2.5fr;
+    gap: 25px;
+    padding: 20px;
+}
+
+.mongo-info-block { display: flex; flex-direction: column; gap: 6px; }
+
+.mongo-info-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: #64748b;
+    font-weight: 600;
+}
+
+.mongo-val-text { color: #10b981; font-weight: 700; font-size: 18px; }
+.mongo-date-text { color: #f1f5f9; font-size: 14px; }
+
+/* --- MUID CONTAINER --- */
+.mongo-muid-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #020617;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+.mongo-muid-text {
+    font-family: 'Fira Code', monospace;
+    color: #38bdf8;
+    font-size: 12px;
+    word-break: break-all;
+}
+
+.mongo-copy-btn {
+    background: transparent;
+    border: none;
+    color: #64748b;
+    cursor: pointer;
+    padding: 4px;
+    transition: color 0.2s;
+}
+
+.mongo-copy-btn:hover { color: #38bdf8; }
+
+.mongo-card-footer {
+    padding: 14px 20px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.mongo-footer-success { background: rgba(16, 185, 129, 0.05); color: #10b981; }
+.mongo-footer-error { background: rgba(239, 68, 68, 0.05); color: #ef4444; }
+
+.stop-btn:hover { background: #dc2626 !important; }

@@ -1,0 +1,24 @@
+O que alteramos:
+
+1. Ajustamos o hook useRouteData para ler corretamente as informações de conexão do contexto e, se estiverem vazias, buscar no localStorage.
+2. Garantimos que o componente RouteAnalyzer sincronize a conexão com o contexto quando o modal de conexão é fechado.
+3. Corrigimos o erro de importação de formatDate em RouteAnalyzer adicionando a importação correta de ../utils/data.
+4. Protegemos o uso de formatDate no RouteAnalyzer usando optional chaining (por exemplo, routeData?.dLastInventory), para evitar erros quando algumas datas não estiverem disponíveis.
+
+Como lidar com a aplicação a partir de agora quando formos implementar algo:
+
+- Sempre comece entendendo o fluxo de dados: de onde vem cada valor e para onde ele vai. No caso do RouteAnalyzer, a conexão do banco vem do contexto (AppContext) e do localStorage.
+- Antes de usar dados que podem não existir, verifique se eles existem ou use optional chaining. Isso evita crashes no React quando um campo vem indefinido.
+- Se o componente depende de funções externas, como executeSelect ou modal de conexão, confirme que essas funções realmente existem e recebem os parâmetros corretos.
+- Para novos recursos, adicione logs claros (console.log) para saber se o valor está chegando corretamente no momento desejado.
+- Sempre teste primeiro a parte mais crítica: abrir o modal, salvar a conexão, e então buscar rotas. Se algo falhar, verifique se o valor foi escrito em localStorage e se o contexto foi atualizado.
+- Documente cada alteração de forma simples, com o porquê da mudança e o que ela resolve.
+
+Dica para iniciante:
+
+Pense no aplicativo como um caminho de mensagens:
+- Um componente abre o modal e pede dados ao usuário;
+- O modal salva esses dados em algum lugar seguro; 
+- O componente principal lê esses dados e chama a função que fala com o banco.
+
+Se qualquer etapa falhar, o aplicativo não funciona. Então, sempre verifique cada passo antes do próximo.

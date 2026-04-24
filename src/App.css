@@ -1,0 +1,285 @@
+/* RESET BÁSICO */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Inter', sans-serif;
+  background-color: #f8fafc;
+}
+
+/* CONTAINER PRINCIPAL: Divide a tela em 2 colunas (Menu e Conteúdo) */
+.app-master-container {
+  display: flex;
+  min-height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background: transparent;
+}
+
+/* ==========================================
+   🧭 SIDEBAR MENU LATERAL
+   ========================================== */
+.sidebar-menu {
+  width: 260px; /* Largura expandida */
+  background-color: #0f172a;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 4px 0 15px rgba(0,0,0,0.2);
+  z-index: 10;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Animação suave de encolhimento */
+}
+
+/* 🔥 A MÁGICA DO ENCOLHIMENTO (Quando o JS injeta a classe) */
+.app-master-container.sidebar-collapsed .sidebar-menu {
+  width: 75px; /* Largura encolhida */
+}
+
+.sidebar-header {
+  padding: 20px 20px 10px 20px;
+  border-bottom: 1px solid #1e293b;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: auto;
+  box-sizing: border-box;
+  position: relative;
+  gap: 10px;
+}
+
+/* Centraliza apenas a setinha quando o texto some */
+.app-master-container.sidebar-collapsed .sidebar-header {
+  align-items: center;
+  padding: 20px 0;
+}
+
+.brand-titles h2 {
+  margin: 0;
+  font-size: 22px;
+  color: #38bdf8;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.brand-titles .subtitle {
+  font-size: 11px;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 600;
+  display: block;
+  margin-top: 2px;
+}
+
+/* Botão de Encolher (Setinha) */
+.collapse-toggle {
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  color: #38bdf8;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.collapse-toggle:hover {
+  background: #38bdf8;
+  color: white;
+}
+
+.app-master-container.sidebar-collapsed .collapse-toggle {
+  position: static;
+  margin-top: 10px;
+}
+
+/* NAVEGAÇÃO DOS BOTÕES */
+.sidebar-nav {
+  flex: 1;
+  padding: 20px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sidebar-nav button {
+  background: transparent;
+  color: #cbd5e1;
+  border: none;
+  padding: 14px 20px;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap; /* Impede o texto de quebrar de linha na animação */
+}
+
+.sidebar-nav button:hover {
+  background-color: #1e293b;
+  color: white;
+  transform: translateX(5px);
+}
+
+.sidebar-nav button.active {
+  background-color: #0284c7;
+  color: white;
+  box-shadow: 0 4px 10px rgba(2, 132, 199, 0.4);
+}
+
+/* 🔥 Comportamento dos botões quando encolhidos */
+.app-master-container.sidebar-collapsed .sidebar-nav button {
+  text-align: center; /* Centraliza o emoji */
+  padding: 14px 0;    /* Remove o padding lateral */
+  font-size: 20px;    /* Aumenta o emoji pra virar um ícone visível */
+  transform: none;    /* Tira o efeito de mover pro lado no hover pra não bugar visualmente */
+}
+
+.app-master-container.sidebar-collapsed .sidebar-nav button:hover {
+  background-color: #1e293b;
+}
+
+/* RODAPÉ DO MENU COM STATUS VERDE */
+.sidebar-footer {
+  padding: 20px;
+  font-size: 12px;
+  color: #64748b;
+  border-top: 1px solid #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  background-color: #22c55e;
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(34, 197, 94, 0.8);
+  animation: pulse-dot 2s infinite;
+  flex-shrink: 0;
+}
+
+@keyframes pulse-dot {
+  0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+  70% { box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+
+/* SELETOR DE IDIOMA MODERNO */
+.modern-lang-selector {
+    display: flex;
+    gap: 8px;
+    background: rgba(248, 250, 252, 0.05);
+    padding: 7px 7px;
+    border-radius: 15px;
+    border: 1px solid rgba(226, 232, 240, 0.3);
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+    margin-top: 10px;
+}
+
+.modern-lang-selector button {
+    background: none; border: none; cursor: pointer;
+    padding: 1px 4px; transition: all 0.3s ease; filter: grayscale(100%); opacity: 0.5;
+    border-radius: 8px;
+}
+
+.modern-lang-selector button:hover {
+    filter: grayscale(0%); opacity: 1; transform: scale(1.1);
+    background: rgba(56, 189, 248, 0.1);
+}
+
+.modern-lang-selector button.active {
+    filter: grayscale(0%); opacity: 1; transform: scale(1.15);
+    background: rgba(56, 189, 248, 0.2);
+    border: 1px solid rgba(56, 189, 248, 0.4);
+}
+
+/* Ajustes para quando o sidebar está collapsed */
+.app-master-container.sidebar-collapsed .modern-lang-selector {
+    flex-direction: column;
+    gap: 6px;
+    padding: 6px 3px;
+    margin: 8px 0;
+}
+
+/* ==========================================
+   📺 ÁREA DE CONTEÚDO PRINCIPAL
+   ========================================== */
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+  position: relative;
+  background-color: #0f172a;
+  background-color: transparent; 
+}
+
+/* ESTILO DO MÓDULO EM BREVE */
+.coming-soon-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #64748b;
+  background: transparent;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+.coming-soon-wrapper h2 {
+  font-size: 28px;
+  color: #f8fafc;
+  margin-bottom: 10px;
+}
+
+/* ==========================================
+   📂 ESTILO DO SUBMENU (PASTA DE LOGS)
+   ========================================== */
+.submenu-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.submenu-parent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* O "corpinho" onde ficam os itens filhos */
+.submenu-items {
+  display: flex;
+  flex-direction: column;
+  margin-left: 25px; /* Recuo para a direita */
+  border-left: 1px solid #30363d; /* Linha guia vertical */
+  padding-bottom: 5px;
+}
+
+/* Estilo para os botões que estão dentro da pasta */
+.submenu-items button {
+  padding: 8px 15px !important;
+  font-size: 13px !important;
+  text-align: left;
+  background: transparent;
+  border: none;
+  color: #8b949e;
+  transition: all 0.2s;
+}
+
+.submenu-items button:hover {
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.05) !important;
+}
+
+.submenu-items button.active {
+  color: #38bdf8 !important;
+  font-weight: 600;
+}
