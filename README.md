@@ -1,18 +1,16 @@
 
 # 🚀  SQL & Mongo Analyzer - Enterprise Edition
 
-Um aplicativo desktop construído com **Electron** e **React** focado em análise avançada de banco de dados, automação de rotinas (Hypercare), diagnóstico de preços e segurança na execução de scripts.
+O SQL & Mongo Analyzer é uma ferramenta de desktop de alta performance construída com Electron e React, desenhada para ser a "War Room" de analistas de suporte, DBAs e equipas de Hypercare. O foco principal é a governança de dados, garantindo que modificações em massa em ambientes produtivos (SQL Server e MongoDB) sejam auditadas, corrigidas e documentadas antes de qualquer execução.
 
 ## ✨ Principais Funcionalidades
 
-* **🛡️ Corretor e Validador de SQL (Proteção de Dados):**
-  * Mecanismo de segurança rigoroso que intercepta e faz o *parser* de queries de `UPDATE` e `DELETE` antes da execução.
-  * **Prevenção de Desastres:** Bloqueia automaticamente execuções sem a cláusula `WHERE`, evitando alterações acidentais em    massa no banco de dados.
+🛡️ Auditoria de Compliance & Prevenção de Desastres
+AI-Powered SQL Refinement: Mecanismo rigoroso que intercepta e realiza o parsing de queries UPDATE e DELETE. A IA não apenas valida a sintaxe, mas corrige automaticamente operadores em falta, formata identificadores e garante o padrão CamelCase da empresa.
 
- * **Análise de Impacto:** Extrai parâmetros da query, identifica as tabelas afetadas e valida a presença de limitadores (como `TOP`), garantindo controle total sobre as modificações de dados críticos.
-  * ** Emite um laudo em PDF comprovando que a análise da query passou pelo crivo do programa
+Regras de Negócio PepsiCo: Auditoria nativa de campos críticos como mc1enabled (apenas 0 ou 1), integridade de IDs não-nulos e dicionário de regionalização para cIDCompany (LATAM).
 
-https://github.com/user-attachments/assets/254a8cda-018b-4061-9b97-07c1372d03bf
+Prevenção de Execuções Órfãs: Bloqueio automático de qualquer instrução sem a cláusula WHERE, eliminando o risco de atualizações acidentais em massa.
 
 
 📊 RouteAnalyzer — Dashboard de Telemetria e BI

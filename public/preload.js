@@ -2,6 +2,9 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('electronAPI', {
+
+
+
     // 1. Envia a query para o validador
     extractParams: (sql) => ipcRenderer.invoke('extract-params', sql),
     
@@ -36,4 +39,10 @@ contextBridge.exposeInMainWorld('electronAPI', {
   
   getMassiveMongoInvoices: (config, queryArray, collectionName) => 
     ipcRenderer.invoke('get-massive-mongo-invoices', config, queryArray, collectionName),
+
+     invoke: (channel, ...args) => ipcRenderer.invoke(channel, ...args),
+
+     // 🔥 ADICIONE ESTAS DUAS LINHAS AQUI PARA A IA PASSAR:
+  askGemini: (prompt) => ipcRenderer.invoke('ask-gemini', prompt),
+  testAIConnection: () => ipcRenderer.invoke('test-ai-connection'),
 });

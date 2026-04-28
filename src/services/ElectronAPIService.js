@@ -26,7 +26,12 @@ class ElectronAPIService {
     try {
       this._log('debug', methodName, { args });
       
+      // Fallback para invocar direto via ipcRenderer caso não esteja no preload
       if (!this.api || !this.api[methodName]) {
+        if (window.ipcRenderer && window.ipcRenderer.invoke) {
+          this._log('warn', methodName, { msg: "Usando window.ipcRenderer.invoke como fallback" });
+          return await window.ipcRenderer.invoke(methodName, ...args);
+        }
         throw new Error(`❌ Método ElectronAPI.${methodName} não disponível`);
       }
 
@@ -36,6 +41,27 @@ class ElectronAPIService {
     } catch (error) {
       this._log('error', methodName, { error: error.message });
       throw error;
+    }
+  }
+
+  // ============ GEMINI AI ANALYZER ============
+
+  async askGemini(prompt) {
+    this._log('info', 'askGemini', { promptLength: prompt?.length });
+    // Usando fallback para caso não tenha exposto no preload
+    if (this.api && this.api.askGemini) {
+      return this._call('askGemini', prompt);
+    } else {
+      return await window.ipcRenderer.invoke('ask-gemini', prompt);
+    }
+  }
+
+  async testAIConnection() {
+    this._log('info', 'testAIConnection', {});
+    if (this.api && this.api.testAIConnection) {
+      return this._call('testAIConnection');
+    } else {
+      return await window.ipcRenderer.invoke('test-ai-connection');
     }
   }
 
@@ -89,33 +115,23 @@ class ElectronAPIService {
 
   // ============ MONGO DB ANALYZERS ============
 
-  /**
-   * Busca notas fiscais no MongoDB baseando-se em filtros
-   * @param {Object} config - { server, database, user, password }
-   * @param {Object} filtros - { series, branches, invoices }
-   * @returns {Promise<Object>} { success, data, error? }
-   */
   async getMongoInvoices(config, filtros) {
     this._log('info', 'getMongoInvoices', { server: config.server, invoicesCount: filtros?.invoices?.length });
     return this._call('getMongoInvoices', config, filtros);
   }
 
-  /**
-   * Busca fechamentos (EOD) no MongoDB
-   * @param {Object} config - { server, database, user, password }
-   * @param {Object} filtros - { cIDLiquidate, cIDCompany }
-   * @param {string} collectionName - Opcional
-   */
   async getMongoEods(config, filtros, collectionName) {
     this._log('info', 'getMongoEods', { server: config.server, collectionName });
     return this._call('getMongoEods', config, filtros, collectionName);
   }
 
+  async getMassiveMongoInvoices(config, queryArray, collectionName) {
+    this._log('info', 'getMassiveMongoInvoices', { server: config.server, queryBlockSize: queryArray?.length });
+    return this._call('getMassiveMongoInvoices', config, queryArray, collectionName);
+  }
+
   // ============ PRICE ANALYZER (SQL) ============
   
-  /**
-   * Busca preços e condições (I007, ZBDC, ZBDI)
-   */
   async analyzeSqlPrices(payload) {
     this._log('info', 'analyzeSqlPrices', { server: payload?.credenciais?.server });
     return this._call('analyzeSqlPrices', payload);
@@ -140,11 +156,6 @@ class ElectronAPIService {
     return this._call('testConnection', server, database, username, password);
   }
 
-  /**
-   * Testa conexão com banco de dados MongoDB
-   * @param {Object} config - { server, database, user, password }
-   * @returns {Promise<Object>} { connected, success, error? }
-   */
   async testMongodb(config) {
     this._log('info', 'testMongodb', { server: config.server, database: config.database });
     return this._call('testMongodb', config);
@@ -193,24 +204,7 @@ class ElectronAPIService {
     this._log('info', 'getSystemInfo', {});
     return this._call('getSystemInfo');
   }
-
-
-  // ============ MONGO DB ANALYZERS ============
-  
-  // (Adicione junto com os outros métodos do Mongo)
-  async getMassiveMongoInvoices(config, queryArray, collectionName) {
-    this._log('info', 'getMassiveMongoInvoices', { 
-      server: config.server, 
-      queryBlockSize: queryArray?.length 
-    });
-    return this._call('getMassiveMongoInvoices', config, queryArray, collectionName);
-  }
-
-  
 }
 
-// Exporta singleton
 export const electronAPIService = new ElectronAPIService();
-
-// Para testes/mocks (opcional)
 export default ElectronAPIService;

@@ -4,13 +4,17 @@ const path = require('path');
 const fs = require('fs');
 const os = require('os');
 const { exec } = require('child_process');
-
-// 🔥 IMPORT DOS HANDLERS MODULARIZADOS
 const registerMongoHandlers = require('./handlers/mongoHandlers');
 const registerSqlHandlers = require('./handlers/sqlHandlers');
 
+const { setupAIHandlers } = require('./handlers/aiHandlers');
+
+
 registerMongoHandlers(ipcMain);
 registerSqlHandlers(ipcMain);
+
+//  Ativando os ouvintes do Gemini
+setupAIHandlers();
 
 try { if (require('electron-squirrel-startup')) app.quit(); } catch (e) {}
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';

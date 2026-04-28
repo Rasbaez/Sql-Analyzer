@@ -7,6 +7,8 @@
   "description": "Analisador de Queries SQL para Suporte PepsiCo",
   "main": "public/electron.js",
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "dotenv": "^17.4.2",
     "framer-motion": "^12.38.0",
     "httpntlm": "^1.7.7",
     "i18next": "^26.0.4",
